@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Romantic Memory Deck</title>
+  <title>Date Memory Card</title>
   <style>
     :root {
       --bg-1: #300914;
@@ -397,7 +397,8 @@
       transition: transform .72s var(--ease), opacity .52s ease;
     }
 
-    .card-wrap.is-open .peek-note {
+    .card-wrap.is-open:hover .peek-note,
+    .card-wrap.is-open:focus-within .peek-note {
       opacity: 1;
       transform: translateX(-50%) translateY(22%) scale(1);
     }
@@ -937,7 +938,7 @@
     </section>
 
     <section class="tips">
-      ✦ Hai sayang buka dari kiri ya ✦
+      ✦ Buka dari kiri ya sayang ✦ 
     </section>
   </main>
 
@@ -987,22 +988,23 @@
       {
         rank: 'A',
         suit: '🩷',
-        theme: 'slow morning',
-        title: 'Morning Letter',
-        subtitle: 'Pagi yang pelan, hangat, dan nggak buru-buru.',
-        kicker: 'Date note • soft sunrise',
+        theme: 'Red and Black',
+        title: 'M',
+        subtitle: 'Lets have some datee today',
+        kicker: 'Date note • Gift Day',
         accent: '#b54e6c',
         light: '#fde5ea',
-        note: 'Jangan lupa senyum pertama hari itu buat aku.',
+        note: 'Prepare for a suprise XD.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
-          ['07.00', 'Meet up'],
+          ['1.00', 'Meet up'],
           ['08.00', 'Breakfast'],
         ],
         schedule: [
-          { time: '07.00', label: 'Meet up with sleepy smiles', desc: 'Ketemu sambil bawa kopi hangat dan saling cerita hal kecil dari pagi.' },
-          { time: '08.00', label: 'Breakfast date', desc: 'Sarapan di tempat yang tenang, dengan meja dekat jendela dan cahaya yang lembut.' },
-          { time: '09.30', label: 'Little walk', desc: 'Jalan santai setelah makan, sekalian cari spot lucu buat foto candid.' },
-          { time: '11.00', label: 'Bookstore stop', desc: 'Pilih satu buku buat satu sama lain, kayak titip kenangan kecil.' },
+          { time: '17.40', label: 'Meet up', desc: 'Aku jemput di kost km' },
+          { time: '18.45', label: 'Salmokji Movie', desc: 'Yah mari kita hapalkan doa pengusir syaiton' },
+          { time: '20.50', label: 'Nasi goreng kencur', desc: 'Pls ak ngidam' },
+          { time: '21.30', label: 'Bukit gunung geulis', desc: 'Kita akan makan nasgor d sini yh' },
         ]
       },
       {
@@ -1015,6 +1017,7 @@
         accent: '#9f5e47',
         light: '#fce9df',
         note: 'Yang penting bukan kopinya, tapi lamanya kita duduk bareng.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['10.00', 'Coffee'],
           ['11.30', 'Dessert'],
@@ -1036,6 +1039,7 @@
         accent: '#ad6c5b',
         light: '#faeadf',
         note: 'Aku bawa selimutnya, kamu bawa versi terbaik dari dirimu.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['12.00', 'Picnic'],
           ['14.00', 'Photos'],
@@ -1057,6 +1061,7 @@
         accent: '#8f5677',
         light: '#f7e9f5',
         note: 'Kalau kamu bingung pilih buku, aku pilihkan yang mengingatkanku padamu.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['13.00', 'Browse'],
           ['15.00', 'Read'],
@@ -1078,6 +1083,7 @@
         accent: '#b56a58',
         light: '#fce8e0',
         note: 'Playlist sudah siap. Tinggal kamu yang duduk di sebelah.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['16.00', 'Drive'],
           ['17.30', 'Sunset'],
@@ -1099,6 +1105,7 @@
         accent: '#7d4f86',
         light: '#f2e7fb',
         note: 'Kalau malamnya indah, semoga kita lebih indah lagi saat mengingatnya.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['19.00', 'Walk'],
           ['20.30', 'Dessert'],
@@ -1118,6 +1125,8 @@
     const paperSubtitle = document.getElementById('paperSubtitle');
     const paperKicker = document.getElementById('paperKicker');
     const paperNote = document.getElementById('paperNote');
+    const paperImage = document.getElementById('paperImage');
+    const defaultPaperImageSrc = paperImage.getAttribute('src');
     const scheduleList = document.getElementById('scheduleList');
     const closeBtn = document.getElementById('closeBtn');
     const flipBackBtn = document.getElementById('flipBackBtn');
@@ -1262,7 +1271,7 @@
                 <div class="front-title">${card.title}</div>
                 <div class="front-tag">${card.theme}</div>
               </div>
-              <div class="front-bottom"><span>${card.suit}</span><span>open me</span></div>
+              <div class="front-bottom"><span>${card.suit}</span><span></span></div>
             </section>
           </div>
           <div class="peek-note" aria-hidden="true">
@@ -1327,6 +1336,8 @@
       paperTitle.innerHTML = `${words.join(' ')} <em>${last}</em>`;
       paperSubtitle.textContent = card.subtitle;
       paperNote.textContent = card.note;
+      paperImage.src = card.image || defaultPaperImageSrc;
+      paperImage.alt = card.title + ' illustration';
       scheduleList.innerHTML = card.schedule.map(item => `
         <li>
           <div class="time">${item.time}</div>
