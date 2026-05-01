@@ -995,6 +995,7 @@
         accent: '#b54e6c',
         light: '#fde5ea',
         note: 'Prepare for a suprise XD.',
+        image: '', // isi path/link gambar khusus kartu ini, contoh: 'images/morning-letter.jpg'
         preview: [
           ['1.00', 'Meet up'],
           ['08.00', 'Breakfast'],
@@ -1125,6 +1126,7 @@
     const paperKicker = document.getElementById('paperKicker');
     const paperNote = document.getElementById('paperNote');
     const paperImage = document.getElementById('paperImage');
+    const paperImageWrap = document.querySelector('.paper-image-wrap');
     const defaultPaperImageSrc = paperImage.getAttribute('src');
     const scheduleList = document.getElementById('scheduleList');
     const closeBtn = document.getElementById('closeBtn');
@@ -1335,8 +1337,13 @@
       paperTitle.innerHTML = `${words.join(' ')} <em>${last}</em>`;
       paperSubtitle.textContent = card.subtitle;
       paperNote.textContent = card.note;
+      if (index === 0) {
+      paperImageWrap.style.display = 'none';
+      } else {
+      paperImageWrap.style.display = 'flex';
       paperImage.src = card.image || defaultPaperImageSrc;
       paperImage.alt = card.title + ' illustration';
+      }
       scheduleList.innerHTML = card.schedule.map(item => `
         <li>
           <div class="time">${item.time}</div>
